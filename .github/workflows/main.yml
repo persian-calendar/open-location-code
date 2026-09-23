@@ -174,3 +174,27 @@ jobs:
           cargo fmt --all -- --check
           cargo build
           cargo test -- --nocapture
+
+  # Kotlin Multiplatform implementation. Lives in kotlin/.
+  test-kotlin:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            gradle-tasks: jvmTest jsNodeTest linuxX64Test
+          - os: macos-14
+            gradle-tasks: macosArm64Test
+          - os: windows-latest
+            gradle-tasks: mingwX64Test
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+      - name: Test with Gradle
+        shell: bash
+        run: cd kotlin && ./gradlew ${{ matrix.gradle-tasks }}

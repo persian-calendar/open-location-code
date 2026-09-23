@@ -1,0 +1,7 @@
+/build/
+/.idea/
+/.gradle/
+local.properties
+kotlin-js-store
+/bin
+.DS_Store

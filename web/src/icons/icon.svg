@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+	<title>Plus Codes</title>
+	<rect width="128" height="128" rx="28" fill="#4c1d95"/>
+	<!-- A code's separator sits in the middle of it, so the mark is that "+", cut out of
+	     the grid the letters fill. -->
+	<g fill="#c4b5fd" opacity=".5">
+		<rect x="20" y="20" width="12" height="12" rx="2"/>
+		<rect x="36" y="20" width="12" height="12" rx="2"/>
+		<rect x="20" y="36" width="12" height="12" rx="2"/>
+		<rect x="36" y="36" width="12" height="12" rx="2"/>
+		<rect x="80" y="20" width="12" height="12" rx="2"/>
+		<rect x="96" y="20" width="12" height="12" rx="2"/>
+		<rect x="96" y="36" width="12" height="12" rx="2"/>
+		<rect x="20" y="80" width="12" height="12" rx="2"/>
+		<rect x="20" y="96" width="12" height="12" rx="2"/>
+		<rect x="36" y="96" width="12" height="12" rx="2"/>
+		<rect x="96" y="96" width="12" height="12" rx="2"/>
+	</g>
+	<path fill="#fb923c" d="M52 34h24v18h18v24H76v18H52V76H34V52h18z"/>
+	<circle cx="64" cy="64" r="7" fill="#4c1d95"/>
+</svg>

@@ -1,0 +1,15 @@
+{
+  "name": "plus-codes-web",
+  "private": true,
+  "type": "module",
+  "description": "The Geo Codes demo page, bundled from the JavaScript implementation in ../js",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "bun run build.js",
+    "dev": "bun run build.js && bun run serve.js",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "h3-js": "^4.5.0"
+  }
+}

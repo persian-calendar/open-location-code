@@ -198,3 +198,23 @@ jobs:
       - name: Test with Gradle
         shell: bash
         run: cd kotlin && ./gradlew ${{ matrix.gradle-tasks }}
+
+  # The demo page in web/, which runs the JavaScript implementation.
+  test-web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Test what the page assumes of the library
+        run: bun test
+      - name: Install librsvg, for the icons
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y librsvg2-bin
+      - name: Build the page
+        run: bun run build.js

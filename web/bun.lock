@@ -1,0 +1,15 @@
+{
+  "lockfileVersion": 2,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "plus-codes-web",
+      "dependencies": {
+        "h3-js": "^4.5.0",
+      },
+    },
+  },
+  "packages": {
+    "h3-js": ["h3-js@4.5.0", "", {}, "sha512-uKmdPc+DuarnR+XqZxEuWOMw7KzzKROrx3MLeJpFnMOs78S9M5eZ+X5RieS9UcSFQqbeXzbfWuX/W9Pyajinqw=="],
+  }
+}

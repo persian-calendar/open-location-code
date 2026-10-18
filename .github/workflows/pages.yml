@@ -1,0 +1,71 @@
+name: Deploy static site to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+defaults:
+  run:
+    # The demo page is a build of its own inside the repository.
+    working-directory: web
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install the page's dependencies
+        # h3-js is bundled into a separate, preloaded script; without it the build cannot
+        # produce that bundle.
+        run: bun install --frozen-lockfile
+
+      - name: Test what the page assumes of the library
+        run: bun test
+
+      - name: Install librsvg, for the icons
+        # The build draws the PNG icons from icons/icon.svg and fails without this, so the
+        # icons that ship are always made from the SVG that is in the repository.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y librsvg2-bin
+
+      - name: Build the page
+        # The build puts the revision inside the worker, which is what turns a deploy into a
+        # new worker and a new cache: the browser only looks for one when sw.js has changed.
+        # It fails rather than publish a worker whose cache never changes.
+        run: bun run build.js
+        env:
+          OLC_BUILD: ${{ github.sha }}
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          # One document with the library and the page's script inside it, plus its icons,
+          # manifest and service worker.
+          path: web/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

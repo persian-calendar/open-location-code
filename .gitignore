@@ -22,3 +22,8 @@ MODULE.bazel.lock
 /js/test/*json
 # Ignore Rust lockfile.
 /rust/Cargo.lock
+.DS_Store
+
+# Ignore the built demo page.
+/web/dist/
+/web/node_modules/
